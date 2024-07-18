@@ -4,7 +4,7 @@
 def add(*args):
     value = 0
     for item in args:
-        if isinstance (item, (int, float)):
+        if isinstance(item, (int, float)):
             value += item
 
     return value
