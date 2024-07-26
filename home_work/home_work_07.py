@@ -1,12 +1,21 @@
+from random import randrange
 """ Домашнее задание № 7 """
 
 
-# Задача № 1
-class Teacher:  # Класс учителя
-    def __init__(self):
+# Задачи № 1 и № 2
+
+class Human:  # Класс человек
+    def __init__(self, full_name, age, gender):
+        self.full_name = full_name
+        self.age = age
+        self.gender = gender
+
+
+class Teacher(Human):  # Класс учителя
+    def __init__(self, full_name, age, gender):
+        super().__init__(full_name, age, gender)
         self.students_qty = 0  # Количество обученных учеников
 
-    # TODO
     def teach(self, material, students):
         if not isinstance(students, list):  # Если передан только 1 ученик (а не список учеников)
             students = [students]  # Создаём список с 1 учеником (str -> list)
@@ -15,31 +24,36 @@ class Teacher:  # Класс учителя
             self.students_qty += 1  # Количество учеников увеличилось
 
 
-class Student:  # Класс ученика
-    def __init__(self):
+class Student(Human):  # Класс ученика
+    def __init__(self, full_name, age, gender):
+        super().__init__(full_name, age, gender)
         self.knowledge_list = []  # Список знаний ученика
+
+    def __len__(self):
+        return len(self.knowledge_list)
 
     def take(self, knowledge):  # Метод "take" принимает строку знаний и добавляет ее в список знаний ученика
         self.knowledge_list.append(knowledge)  # Добавляем знание в список знаний ученика
 
+    def forgot(self, knowledge):  #  метод, позволяющий ученику случайно "забывать" какую-нибудь часть своих знаний
+        self.knowledge_list.pop(randrange(len(self.knowledge_list)))  # Забываем случайное знание из списка знаний
 
 class LearningMaterials:  # Класс учебных материалов
-
-    # def __new__(cls, *args, **kwargs):
-    #     materials_list = [*args]  # при инициализации сохранять в один атрибут в виде списка.
-    #     # print(materials_list)  # Проверяем, правильно ли мы создали лист с материалами
 
     def __init__(self, *args):  # Принимает любое количество не именованных атрибутов
         self.materials_list = [*args]  # При инициализации сохранять в один атрибут в виде списка.
         # print(self.materials_list)  # Просто проверяем, правильно ли мы создали лист с материалами
 
+    def __len__(self):
+        return len(self.materials_list)
+
 
 lessons = LearningMaterials('Python', 'Version Control Systems', 'Relational Databases', 'NoSQL databases', 'Message Brokers')  # Создаём объект учебных матириалов
-theTeacher = Teacher()  # Создаём объект учителя
-student1 = Student()  # Ученик №1
-student2 = Student()  # Ученик №2
-student3 = Student()  # Ученик №3
-student4 = Student()  # Ученик №4
+theTeacher = Teacher(full_name='Иванов Иван Иванович', age=55, gender='male')  # Создаём объект учителя
+student1 = Student(full_name='Петров Пётр Петрович', age=18, gender='male')  # Ученик №1
+student2 = Student(full_name='Сидоров Сидор Сидорович', age=19, gender='male')  # Ученик №2
+student3 = Student(full_name='Иванова Оксана Григорьевна', age=20, gender='female')  # Ученик №3
+student4 = Student(full_name='Новиков Вяеслав Иванович', age=21, gender='male')  # Ученик №4
 
 
 # Проводим обучение учеников.
@@ -64,3 +78,18 @@ print(f'4-й ученик знает следующие материалы: {stu
 4-й ученик знает следующие материалы: ['Python']
 '''
 
+print('Количество материалов:', len(lessons))
+print(f'Количество знаний у ученика №1 ({student1.full_name}, {student1.age} лет, {student1.gender}): {len(student1)} '
+      f'знаний: \n {student1.knowledge_list}')
+student1.forgot(len(student1))  # Ученик забывает случайное знание
+print(f'Количество знаний у ученика №1 ({student1.full_name}, {student1.age} лет, {student1.gender}): {len(student1)} '
+      f'знаний: \n {student1.knowledge_list}')
+
+# Результат:
+'''
+Количество материалов: 5
+Количество знаний у ученика №1 (Петров Пётр Петрович, 18 лет, male): 4 знаний: 
+ ['Python', 'Version Control Systems', 'Relational Databases', 'NoSQL databases']
+Количество знаний у ученика №1 (Петров Пётр Петрович, 18 лет, male): 3 знаний: 
+ ['Version Control Systems', 'Relational Databases', 'NoSQL databases']
+'''
