@@ -43,7 +43,7 @@ cucumber = Vegetable(name='Огурец', quantity=5)
 pear = Fruit(name='Груша', quantity=1)
 
 print(f'{cucumber.type} {cucumber.get_name()} в количестве {cucumber.get_quantity()} шт.')
-print(f'{pear.type} {pear.get_name()} в количестве {pear.get_quantity()} шт.')  # Фрукт Груша в количестве 1 шт.
+print(f'{pear.type} {pear.get_name()} в количестве {pear.get_quantity()} шт.')
 
 # Результат:
 # Овощь Огурец в количестве 5 шт.
