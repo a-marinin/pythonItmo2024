@@ -27,7 +27,7 @@ print()
 # Задача № 2
 def find_same_values_in_lists() -> None:
     l1 = [1, 2, 3, 'test', True, False, 5.5]
-    l2 = [4, 5, 6, 'temp', 0, 0.1, -5, 5.5]
+    l2 = [4, 5, 6, 'temp.py', 0, 0.1, -5, 5.5]
     print([element for element in l1 if element in l2])  # [False, 5.5]
 
 
